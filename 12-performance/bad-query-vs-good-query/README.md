@@ -4,8 +4,10 @@ Five pairs of queries that return the same rows with very different cost. Each f
 `README.md` explaining why.
 
 Every number below was measured against the seeded database in `setup/` on SQL Server 2022, using
-`SET STATISTICS IO ON` for reads and wall clock timing for the cursor comparison. Run them yourself, the numbers will
-shift with hardware but the ratios hold.
+`SET STATISTICS IO ON` for reads and wall clock timing for the cursor comparison.
+
+Logical read counts are deterministic and will reproduce on any machine. The timing in case 03 is not: it ranges from
+roughly 150x to 1,600x depending on storage latency. Run them yourself.
 
 ## Results
 
@@ -13,7 +15,7 @@ shift with hardware but the ratios hold.
 | --- | --- | --- | --- |
 | [01 Sargability](01-sargability/) | 101 reads | 4 reads | 25x fewer reads |
 | [02 SELECT star](02-select-star/) | 159 reads | 25 reads | 6x fewer reads |
-| [03 Row by row](03-row-by-row/) | 76,408 ms | 47 ms | 1,600x faster |
+| [03 Row by row](03-row-by-row/) | 76,408 ms | 47 ms | 150x to 1,600x faster |
 | [04 Implicit conversion](04-implicit-conversion/) | 4 reads, scan | 2 reads, seek | Scan becomes a seek |
 | [05 Correlated subquery](05-correlated-subquery/) | 477 reads, 3 scans | 159 reads, 1 scan | 3x fewer reads |
 

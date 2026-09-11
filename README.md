@@ -55,7 +55,7 @@ Five pairs of queries returning identical results at very different cost, all me
 | --- | --- | --- | --- |
 | Sargability | 101 reads | 4 reads | 25x fewer reads |
 | `SELECT *` | 159 reads | 25 reads | 6x fewer reads |
-| Cursor vs set based | 76,408 ms | 47 ms | 1,600x faster |
+| Cursor vs set based | 76,408 ms | 47 ms | 150x to 1,600x faster |
 | Implicit conversion | Index scan | Index seek | Plan shape changes |
 | Correlated subquery | 477 reads, 3 passes | 159 reads, 1 pass | 3x fewer reads |
 

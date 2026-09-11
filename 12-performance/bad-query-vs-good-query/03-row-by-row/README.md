@@ -4,12 +4,18 @@
 
 Applying a 2 percent adjustment to `TotalAmount` on all 20,000 orders:
 
-| Version | Elapsed | Ratio |
+| Version | Docker Desktop on Windows | GitHub Actions runner |
 | --- | --- | --- |
-| `bad.sql`, cursor | 76,408 ms | |
-| `good.sql`, single `UPDATE` | 47 ms | 1,600x faster |
+| `bad.sql`, cursor | 76,408 ms | ~8,800 ms |
+| `good.sql`, single `UPDATE` | 47 ms | ~60 ms |
+| Ratio | 1,600x | ~150x |
 
-The cursor version takes over a minute. Be ready for that when running it.
+This is the one comparison in the repository where the hardware changes the answer substantially. The cursor is bound
+by per statement and per log record overhead, so it is far more sensitive to storage latency than the set based
+version. On slow storage the gap is enormous; on fast storage it is merely large.
+
+Either way the conclusion is the same, and the cursor version may take over a minute on your machine. Be ready for
+that when running it.
 
 ## Why the gap is so large
 
