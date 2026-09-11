@@ -8,6 +8,15 @@
 USE SqlRecipes;
 GO
 
+/*
+    Filtered indexes and indexes on computed columns require these SET options
+    to be ON, both when the index is created and in every session that writes
+    to the table. sqlcmd leaves QUOTED_IDENTIFIER off by default.
+*/
+SET ANSI_NULLS ON;
+SET QUOTED_IDENTIFIER ON;
+GO
+
 SET STATISTICS IO ON;
 GO
 
